@@ -1,8 +1,16 @@
 var startBtn = document.getElementById("startBtn"); 
+
+$(document).on('click', '.answer-button', function(e){
+    game.clicked(e);
+})
+
+$(document).on('click', '#reset', function(){
+    game.reset();
+})
 var questions = [{
     question: "During the 1980s for 6 consecutive years what breed of dog was most popular in the us?",
     answers: ["Cocker spaniel", "German shepherd", "Labrador retriever", "Poodle"],
-    corretAnwser: "Cocker spaniel",
+    correctAnswer: "Cocker spaniel",
     image: "Assets/images/cocker spaniel.gif"},
 
     {
@@ -24,46 +32,92 @@ var questions = [{
 var game = {
     questions: questions,
     currentQuestion:0,
-    counter: 30,
     correct:0,
     incorrect:0,
-    countdown: function(){
+    unanswered:0,
+    //countdown: function(){
 
-    },
-    loadQuestion: function(){
+    //},
+    //loadQuestion: function(){
         
-    },
+   // },
     nextQuestion: function(){
+        //reset the timer when it goes to next question 
+        timer = 60; 
+        $('#timer').html(timer); 
+        game.currentQuestion++;
+        window.onload; 
 
     },
     timeUp: function(){
+        clearInterval(timer); 
+        game.unanswered++; 
+        $('#subwrapper').html('<h2>Out of time!');
+        $('#subwrapper').append('<h3> The Correct Answer Was: ' + questions[game.currentQuestion].correctAnswer+'<h3>');
+        if(game.currentQuestion==questions.length-1) {
+            setTimeout(game.results,3*1000);
+
+        } else {
+            setTimeout(game.nextQuestion,3*1000);
+        }
 
     },
     results: function(){
+        clearInterval(timer);
+        $('#subwrapper').html("<h2>All Done");
+        $('#subwrapper').append("<h3>Correct: "+game.correct+"<h3>");
+        $('#subwrapper').append("<h3>Incorrect: "+game.incorrect+"<h3>");
+        $('#subwrapper').append("<h3>Unanswered: "+game.unanswered+"<h3>");
+        $('#subwrapper').append();
 
     },
-    clicked: function(){
+    clicked: function(e){
+        clearInterval(timer);
+        if($(e.target).data("name")==questions[game.currentQuestion].correctAnswer){
+            game.answeredCorrectly();
+        } else {
+            game.answeredCorrectly();
+        }
 
     },
     answeredCorrectly: function(){
+        console.log("You got it!");
+        clearInterval(timer);
+        game.correct++;
+        $("#subwrapper").html("<h2>You Got It</h2>");
+        if(game.currentQuestion==questions.length-1) {
+            setTimeout(game.results,3*1000);
+
+        } else {
+            setTimeout(game.nextQuestion,3*1000);
+        }
 
     },
     answeredIncorrectly: function(){
+        console.log("Wrong!")
+        clearInterval(timer);
+        game.incorrect++;
+        $("#subwrapper").html("<h2>You Got Wrong</h2>");
+        $('#subwrapper').append('<h3> The Correct Answer Was: ' + questions[game.currentQuestion].correctAnswer+'<h3>');
+        if(game.currentQuestion==questions.length-1) {
+            setTimeout(game.results,3*1000);
+
+        } else {
+            setTimeout(game.nextQuestion,3*1000);
+        }
 
     },
     reset: function(){
+        game.currentQuestion = 0;
+        game.timer = 0;
+        game.correct = 0;
+        game.incorrect = 0; 
+        game.unanswered = 0; 
+        initialize(); 
 
     }
 
 }
-
-
- 
-
-
-//if timeleft-counter = 0, clear interval 
-
-//event.preventDefault
 
 
 
@@ -91,8 +145,8 @@ function startTimer(duration, display) {
         display.textContent = minutes + ":" + seconds;
 
         if (--timer <=0) {
-            //timer = duration;
-            console.log("Time Up!"); 
+            timer = duration;
+            //call function to stop timer 
             game.timeUp(); 
         }
     }, 1000);
@@ -100,39 +154,19 @@ function startTimer(duration, display) {
 
 
 window.onload = function () {
-    var fourMinutes = 60 * 1,
+    var oneMinute = 60 * 1,
     display = document.querySelector('#timer');
-    startTimer(fourMinutes, display); 
+    startTimer(oneMinute, display); 
     $("#subwrapper").html("<h3>"+questions[game.currentQuestion].question+"</h3>")
 
     for(var i=0; i<questions[game.currentQuestion].answers.length;i++) {
-        $("#button-").val(i+'data-name=' +questions[game.currentQuestion].answers[i]
-        +questions[game.currentQuestion].answers[i]);
+        $("#subwrapper").append('<button class="answer-button" id="button-'+i+'" data-name="'
+    +questions[game.currentQuestion].answers[i]+'">'+questions[game.currentQuestion].answers[i]+'</button>');
     }
 }
 
 
-// for loop for questions
 
-for (i = 0; i<question.length; i++) {
-
-    if (i==0) {
-
-        text = question[i];   
-    }
-    document.getElementById('question').innerHTML= text;
-
-
-
-}
-
-var option = ["Cocker Spaniel", "German Shepherd", "Labrador Retriever", "Poodle"];
-
-for (i = 0; i< option.length; i++) {
-
-    
-
-}
 
 
 
