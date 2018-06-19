@@ -32,15 +32,26 @@ var questions = [{
 var game = {
     questions: questions,
     currentQuestion:0,
+    
     correct:0,
     incorrect:0,
     unanswered:0,
     //countdown: function(){
 
     //},
-    //loadQuestion: function(){
+    loadQuestion: function(){
+        var oneMinute = 60 * 1,
+        display = document.querySelector('#timer');
+        startTimer(oneMinute, display); 
+        $("#subwrapper").html("<h3>"+questions[game.currentQuestion].question+"</h3>")
+    
+        for(var i=0; i<questions[game.currentQuestion].answers.length;i++) {
+            $("#answer-group").append('<button class="answer-button" id="button-'+i+'" data-name="'
+        +questions[game.currentQuestion].answers[i]+'">'+questions[game.currentQuestion].answers[i]+'</button>');
+        }
+
         
-   // },
+   },
     nextQuestion: function(){
         //reset the timer when it goes to next question 
         timer = 60; 
@@ -120,13 +131,12 @@ var game = {
 
 }
 
-
-
 function initialize() {
 
 var hiddenDiv = document.getElementsByClassName("main-container");
 hiddenDiv[0].style.display = "block";  
 startBtn.style.display = "none"; 
+game.loadQuestion(); 
 
 }
 
@@ -154,17 +164,7 @@ function startTimer(duration, display) {
 }
 
 
-window.onload = function () {
-    var oneMinute = 60 * 1,
-    display = document.querySelector('#timer');
-    startTimer(oneMinute, display); 
-    $("#subwrapper").html("<h3>"+questions[game.currentQuestion].question+"</h3>")
 
-    for(var i=0; i<questions[game.currentQuestion].answers.length;i++) {
-        $("#subwrapper").append('<button class="answer-button" id="button-'+i+'" data-name="'
-    +questions[game.currentQuestion].answers[i]+'">'+questions[game.currentQuestion].answers[i]+'</button>');
-    }
-}
 
 
 
