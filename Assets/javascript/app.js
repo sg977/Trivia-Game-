@@ -40,9 +40,9 @@ var game = {
 
     //},
     loadQuestion: function(){
-        var oneMinute = 60 * 1,
+        var halfMinute = 30,
         display = document.querySelector('#timer');
-        startTimer(oneMinute, display); 
+        startTimer(halfMinute, display); 
         $("#subwrapper").html("<h3>"+questions[game.currentQuestion].question+"</h3>")
     
         for(var i=0; i<questions[game.currentQuestion].answers.length;i++) {
@@ -54,8 +54,8 @@ var game = {
    },
     nextQuestion: function(){
         //reset the timer when it goes to next question 
-        timer = 60; 
-        $('#timer').html(timer); 
+        halfMinute = 30; 
+        $('#timer').html(halfMinute); 
         game.currentQuestion++;
         window.onload; 
 
@@ -87,7 +87,7 @@ var game = {
         if($(e.target).data("name")==questions[game.currentQuestion].correctAnswer){
             game.answeredCorrectly();
         } else {
-            game.answeredCorrectly();
+            game.answeredIncorrectly();
         }
 
     },
