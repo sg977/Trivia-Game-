@@ -113,6 +113,7 @@ var game = {
         game.correct = 0;
         game.incorrect = 0; 
         game.unanswered = 0; 
+        oneMinute = 0; 
         initialize(); 
 
     }

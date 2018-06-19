@@ -1,7 +1,13 @@
-body {
+
+ body {
     background: #f9c9c9; 
-    text-align: center; 
+    text-align: center;
 }
+  
+
+
+
+
 
 .main-container {
     position: absolute; 
@@ -40,7 +46,7 @@ h1 {
 
 
 
-.btn-group button {
+.answer-button {
     background: #b4e3cf;
     border: 1px solid white;
     margin-bottom: 10px; 
@@ -48,12 +54,14 @@ h1 {
     padding: 40px;
     width: 600px;
     display: block; 
+    font-size: 20px;
+    font-weight: bold; 
 }
 
-.btn-group button:not(:last-child) {
+.answer-button:not(:last-child) {
     border-bottom: none;
 }
 
-.btn-group button:hover {
+.answer-button:hover {
     background-color: lightblue; 
 }
